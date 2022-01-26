@@ -1,5 +1,4 @@
 const admin = require('firebase-admin');
-const HttpStatus = require("http-status-codes")
 
 module.exports = async(req, res) => {
 

@@ -1,5 +1,4 @@
 const express = require("express");
-const functions = require("firebase-functions");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
@@ -14,4 +13,4 @@ app.use(CheckAuth);
 
 app.use(indexRouter);
 
-module.exports = functions.https.onRequest(app);
+module.exports = app;
