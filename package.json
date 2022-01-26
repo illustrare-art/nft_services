@@ -1,15 +1,22 @@
 {
-  "name": "create_key_pair",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "firebase-functions": "^3.16.0"
-  }
+    "name": "create_key_pair",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "emulators:start": "npx firebase emulators:start",
+        "deploy:functions": "npx firebase deploy --only functions"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "firebase-functions": "^3.16.0",
+        "http-status-codes": "^2.2.0"
+    },
+    "devDependencies": {
+        "@firebase/testing": "^0.20.11",
+        "jest": "^27.4.7"
+    }
 }
