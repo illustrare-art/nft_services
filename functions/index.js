@@ -1,5 +1,6 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
+const web3 = require("@solana/web3.js");
 
 
 admin.initializeApp();
@@ -15,6 +16,9 @@ admin.initializeApp();
 // auth trigger ( new user signup )
 exports.newUserSignUp = functions.auth.user().onCreate((user) => {
     const {email, uid, photoURL, phoneNumber} = user;
+    const {_keypair: {publicKey, secretKey}} = web3.Keypair.generate();
+
+
     admin
         .firestore()
         .collection("users")
@@ -23,6 +27,8 @@ exports.newUserSignUp = functions.auth.user().onCreate((user) => {
             email,
             profilePhoto: photoURL,
             phoneNumber,
+            publicKey,
+            secretKey,
         });
 });
 
@@ -30,12 +36,11 @@ exports.newUserSignUp = functions.auth.user().onCreate((user) => {
 exports.userDeleted = functions.auth.user().onDelete((user) => {
     const {uid} = user;
 
-    const userRef = admin
+    admin
         .firestore()
         .collection("users")
-        .ref(uid);
-
-    if (userRef) {
-        userRef.remove();
-    }
+        .doc(uid)
+        .delete();
 });
+
+exports.api = require("./app");
