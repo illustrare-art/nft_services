@@ -15,8 +15,8 @@ admin.initializeApp();
 
 // auth trigger ( new user signup )
 exports.newUserSignUp = functions.auth.user().onCreate((user) => {
-    const {email, uid, photoURL, phoneNumber} = user;
-    const {_keypair: {publicKey, secretKey}} = web3.Keypair.generate();
+    const { email, uid, photoURL, phoneNumber } = user;
+    const { _keypair: { publicKey, secretKey } } = web3.Keypair.generate();
 
 
     admin
@@ -25,16 +25,16 @@ exports.newUserSignUp = functions.auth.user().onCreate((user) => {
         .doc(uid)
         .set({
             email,
-            profilePhoto: photoURL,
-            phoneNumber,
-            publicKey,
-            secretKey,
+            profile_photo: photoURL,
+            phone_number: phoneNumber,
+            public_key: publicKey,
+            secret_key: secretKey,
         });
 });
 
 // auth trigger ( user deleted +)
 exports.userDeleted = functions.auth.user().onDelete((user) => {
-    const {uid} = user;
+    const { uid } = user;
 
     admin
         .firestore()

@@ -3,28 +3,31 @@ const HttpStatus = require("http-status-codes")
 
 module.exports = async(req, res) => {
 
-    const { userId, username, profile_photo, description } = req.body
-    const user = await admin
-        .auth()
-        .getUser(userId);
-    if (user === null) {
-        res.setStatus(HttpStatus.StatusCodes.UNAUTHORIZED);
-        res.json({
-            success: false
-        })
-    } else {
-        admin
-            .firestore()
-            .where("username", "==", username)
-            .get()
-            .then((querySnapshot) => {
-                if (querySnapshot.size === 0) return res.json({ success: true })
-                else return res.json({
-                    success: false,
-                    msg: "Username already exist"
-                })
+    const { user_id, username, profile_photo, phone_number } = req.body
+    admin
+        .firestore()
+        .collection("users")
+        .where("username", "==", username)
+        .get()
+        .then((querySnapshot) => {
+            if (querySnapshot.size === 0) {
+                admin
+                    .firestore()
+                    .collection("users")
+                    .doc(user_id)
+                    .update({
+                        username,
+                        profile_photo,
+                        phone_number
+                    })
+                return res.json({ success: true })
+            } else return res.json({
+                success: false,
+                msg: "Username already exist"
             })
-    }
+        })
+
+
 
 };
 
