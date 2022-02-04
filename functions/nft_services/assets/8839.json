@@ -1,0 +1,13 @@
+{
+    "name": "8839",
+    "symbol": "AR",
+    "description": "8839 is the 2nd",
+    
+    "seller_fee_basis_points": 500,
+    "image": "8839.png",
+    "attributes": [],
+    "properties": {
+        "creators": [{"address": "ETeXREKxcDWnWPrN7NEAbpZKZyyovvA2pLxSGKtFpDnU", "verified":true,"share": 100}],
+        "files": [{"uri": "8839.png", "type": "image/png"}]
+    }
+}
