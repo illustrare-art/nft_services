@@ -4,16 +4,14 @@ const web3 = require("@solana/web3.js");
 
 admin.initializeApp();
 
-const app = require("./app");
-
 
 //auth trigger(new user signup)
-exports.newUserSignUp = functions.auth.user().onCreate((user) => {
+exports.newUserSignUp = functions.auth.user().onCreate(async(user) => {
     const { email, uid, photoURL, phoneNumber } = user;
     const { _keypair: { publicKey, secretKey } } = web3.Keypair.generate();
 
 
-    admin
+    await admin
         .firestore()
         .collection("users")
         .doc(uid)
@@ -27,15 +25,12 @@ exports.newUserSignUp = functions.auth.user().onCreate((user) => {
 });
 
 // auth trigger ( user deleted +)
-exports.userDeleted = functions.auth.user().onDelete((user) => {
+exports.userDeleted = functions.auth.user().onDelete(async(user) => {
     const { uid } = user;
 
-    admin
+    await admin
         .firestore()
         .collection("users")
         .doc(uid)
         .delete();
 });
-
-// REST API server
-exports.api = functions.https.onRequest(app);

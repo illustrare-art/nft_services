@@ -6,7 +6,8 @@
     "scripts": {
         "test": "jest --runInBand",
         "emulators:start": "npx firebase emulators:start",
-        "deploy:functions": "npx firebase deploy --only functions"
+        "functions:deploy": "npx firebase deploy --only functions",
+        "functions:delete": "npx firebase functions:delete"
     },
     "keywords": [],
     "author": "",
